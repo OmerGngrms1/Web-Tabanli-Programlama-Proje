@@ -1,0 +1,196 @@
+/* Global Styles */
+:root {
+  --primary-color: #2563eb;
+  /* Blue 600 */
+  --secondary-color: #3b82f6;
+  /* Blue 500 */
+  --accent-color: #0ea5e9;
+  /* Sky 500 */
+  --background-light: #eff6ff;
+  /* Blue 50 */
+  --text-dark: #1e293b;
+  /* Slate 800 */
+  --text-muted: #64748b;
+  /* Slate 500 */
+  --card-bg: #ffffff;
+  --navbar-bg: rgba(255, 255, 255, 0.90);
+  /* White glass */
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --gradient-main: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  padding-top: 80px;
+  /* Space for fixed navbar */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -0.025em;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* Navigation Bar */
+.navbar {
+  background-color: var(--navbar-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 1rem 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+  font-weight: 800;
+  font-size: 1.5rem;
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent !important;
+  /* Override white */
+}
+
+.nav-link {
+  color: var(--text-muted) !important;
+  font-weight: 500;
+  margin-left: 1.5rem;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary-color) !important;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: var(--gradient-main);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.navbar-toggler {
+  border: none;
+  outline: none;
+}
+
+.navbar-toggler-icon i {
+  color: var(--text-dark) !important;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--gradient-main);
+  border: none;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+  background: var(--gradient-main);
+  color: white;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--text-dark);
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: var(--text-dark);
+  color: var(--text-dark);
+}
+
+/* Cards & Containers */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;
+  /* Push to bottom in flex container */
+  padding: 1rem 0;
+  /* Reduced from 2rem */
+  border-top: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  /* Reduced from 0.9rem */
+  background-color: white;
+}
+
+/* Layout Helpers */
+.main-content {
+  flex: 1;
+  /* Grow to fill available space */
+  padding-bottom: 2rem;
+  /* Ensure spacing from footer */
+}
+
+/* Helper Utilities */
+.text-gradient {
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 1.5rem;
+}

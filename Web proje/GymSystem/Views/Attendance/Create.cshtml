@@ -1,0 +1,45 @@
+@model GymSystem.Models.Attendance
+
+@{
+    ViewData["Title"] = "Yoklama Al";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0"><i class="fas fa-calendar-plus"></i> Yoklama Kaydı</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mb-3">
+                        <label asp-for="MemberId" class="control-label">Üye Seçiniz</label>
+                        <select asp-for="MemberId" class ="form-select" asp-items="ViewBag.MemberId">
+                             <option value="">-- Üye --</option>
+                        </select>
+                        <span asp-validation-for="MemberId" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Date" class="control-label"></label>
+                        <input asp-for="Date" class="form-control" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsPresent" /> @Html.DisplayNameFor(model => model.IsPresent)
+                        </label>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                        <a asp-action="Index" class="btn btn-secondary">Geçmişe Dön</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

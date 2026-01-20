@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<!-- Hero Section -->
+<div class="p-5 mb-4 bg-light rounded-3 shadow-sm border" style="background: linear-gradient(120deg, var(--background-light) 0%, #fff 100%);">
+    <div class="container-fluid py-4">
+        <h1 class="display-5 fw-bold text-gradient">FitTrack'e Hoş Geldiniz</h1>
+        <p class="col-md-8 fs-4 text-muted">Spor salonunuzu modern ve kolay bir şekilde yönetin. Üyelerinizi takip edin, programlar oluşturun ve istatistiklerinizi inceleyin.</p>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row text-center mb-5 pb-5">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm hover-card">
+            <div class="card-body p-4">
+                <div class="icon-circle mb-3 bg-primary-light text-primary">
+                    <i class="fas fa-users fa-2x"></i>
+                </div>
+                <h5 class="card-title text-muted text-uppercase fs-6">Toplam Üye</h5>
+                <h2 class="display-4 fw-bold text-dark">@ViewBag.MemberCount</h2>
+                <a asp-controller="Members" asp-action="Index" class="btn btn-sm btn-link text-decoration-none stretched-link">Detayları Gör <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm hover-card">
+            <div class="card-body p-4">
+                <div class="icon-circle mb-3 bg-success-light text-success">
+                    <i class="fas fa-dumbbell fa-2x"></i>
+                </div>
+                <h5 class="card-title text-muted text-uppercase fs-6">Aktif Programlar</h5>
+                <h2 class="display-4 fw-bold text-dark">@ViewBag.ProgramCount</h2>
+                <a asp-controller="Programs" asp-action="Index" class="btn btn-sm btn-link text-decoration-none stretched-link">Detayları Gör <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm hover-card">
+            <div class="card-body p-4">
+                <div class="icon-circle mb-3 bg-warning-light text-warning">
+                    <i class="fas fa-clipboard-check fa-2x"></i>
+                </div>
+                <h5 class="card-title text-muted text-uppercase fs-6">Bugünkü Katılım</h5>
+                <h2 class="display-4 fw-bold text-dark">@ViewBag.TodayAttendance</h2>
+                <span class="text-muted small">Son güncelleme: Şimdi</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .hover-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+    .bg-primary-light { background-color: rgba(37, 99, 235, 0.1); padding: 15px; border-radius: 50%; display: inline-block; }
+    .bg-success-light { background-color: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 50%; display: inline-block; }
+    .bg-warning-light { background-color: rgba(245, 158, 11, 0.1); padding: 15px; border-radius: 50%; display: inline-block; }
+    
+    .text-gradient {
+        background: var(--gradient-main);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+</style>

@@ -1,0 +1,69 @@
+@model GymSystem.Models.Member
+
+@{
+    ViewData["Title"] = "Üye Düzenle";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-dark">
+                <h4 class="mb-0"><i class="fas fa-user-edit"></i> Üye Düzenle</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="RegistrationDate" />
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Surname" class="form-label"></label>
+                            <input asp-for="Surname" class="form-control" />
+                            <span asp-validation-for="Surname" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Phone" class="form-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                   <div class="mb-3">
+                        <label class="form-label">Şifre (Değiştirmek isterseniz doldurun)</label>
+                        <input type="text" name="NewPassword" class="form-control" placeholder="Mevcut şifreyi korumak için boş bırakın" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="WorkoutProgramId" class="form-label"></label>
+                        <select asp-for="WorkoutProgramId" class ="form-select" asp-items="ViewBag.WorkoutProgramId">
+                            <option value="">-- Antrenman Programı Seçiniz --</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="DietPlanId" class="form-label"></label>
+                        <select asp-for="DietPlanId" class ="form-select" asp-items="ViewBag.DietPlanId">
+                            <option value="">-- Diyet Planı Seçiniz --</option>
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+                        <button type="submit" class="btn btn-warning">Güncelle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,45 @@
+@model GymSystem.Models.Member
+
+@{
+    ViewData["Title"] = "Üye Sil";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Üye Silinecek</h4>
+            </div>
+            <div class="card-body">
+                <p class="lead">Bu üyeyi silmek istediğinize emin misiniz?</p>
+                <dl class="row">
+                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Name)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
+                    
+                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Surname)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Surname)</dd>
+
+                    <dt class="col-sm-4">Program</dt>
+                    <dd class="col-sm-8">
+                         @if (Model.WorkoutProgram != null)
+                        {
+                            @Model.WorkoutProgram.Name
+                        }
+                        else
+                        {
+                            <span class="text-muted">Atanmadı</span>
+                        }
+                    </dd>
+                </dl>
+                
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+                        <button type="submit" class="btn btn-danger">Evet, Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
