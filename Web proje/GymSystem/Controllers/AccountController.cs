@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using GymSystem.Data;
@@ -144,6 +145,65 @@ namespace GymSystem.Controllers
                 return View();
             }
 
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpGet]
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> EditProfile()
+        {
+            var userIdClaim = User.FindFirst("UserId");
+            if (userIdClaim == null) return RedirectToAction("Login");
+            
+            var member = await _context.Members.FindAsync(int.Parse(userIdClaim.Value));
+            if (member == null) return NotFound();
+
+            return View(member);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Member")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProfile(Member model)
+        {
+            var userIdClaim = User.FindFirst("UserId");
+            if (userIdClaim == null) return RedirectToAction("Login");
+            
+            var memberToUpdate = await _context.Members.FindAsync(int.Parse(userIdClaim.Value));
+            if (memberToUpdate == null) return NotFound();
+
+            if (model.Id != memberToUpdate.Id) return Unauthorized();
+
+            // Check if weight changed and log it
+            if (model.Weight != memberToUpdate.Weight)
+            {
+               if (model.Weight.HasValue)
+               {
+                   _context.MemberWeights.Add(new MemberWeight
+                   {
+                       MemberId = memberToUpdate.Id,
+                       Weight = model.Weight.Value,
+                       Date = DateTime.Now
+                   });
+               }
+            }
+
+            memberToUpdate.Name = model.Name;
+            memberToUpdate.Surname = model.Surname;
+            memberToUpdate.Email = model.Email;
+            memberToUpdate.Phone = model.Phone;
+            memberToUpdate.Age = model.Age;
+            memberToUpdate.Weight = model.Weight;
+            memberToUpdate.Height = model.Height;
+            memberToUpdate.Gender = model.Gender;
+            
+            // Password update if provided optional removed for simplicity or create separate input in view? 
+            // User said "password change place is unnecessary there", maybe keep it separate or include here.
+            // Let's assume we keep it strictly profile details for now as requested "weight/age".
+
+            _context.Update(memberToUpdate);
+            await _context.SaveChangesAsync();
+            
+            TempData["SuccessMessage"] = "Bilgileriniz güncellendi.";
             return RedirectToAction("Index", "Home");
         }
     }

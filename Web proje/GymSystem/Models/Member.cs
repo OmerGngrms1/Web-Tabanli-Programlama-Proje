@@ -14,8 +14,13 @@ namespace GymSystem.Models
         [Display(Name = "Soyad")]
         public string Surname { get; set; } = null!;
 
+        [Required(ErrorMessage = "Cinsiyet seçimi zorunludur.")]
+        [Display(Name = "Cinsiyet")]
+        public string Gender { get; set; } = null!;
+
         [Display(Name = "Kayıt Tarihi")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = false)]
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
 
         [EmailAddress(ErrorMessage = "Geçerli bir e-posta adresi giriniz.")]
@@ -26,6 +31,15 @@ namespace GymSystem.Models
         [Phone(ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
         [Display(Name = "Telefon")]
         public string? Phone { get; set; }
+
+        [Display(Name = "Yaş")]
+        public int? Age { get; set; }
+
+        [Display(Name = "Kilo (kg)")]
+        public double? Weight { get; set; }
+
+        [Display(Name = "Boy (cm)")]
+        public double? Height { get; set; }
 
         [Required(ErrorMessage = "Şifre zorunludur.")]
         [Display(Name = "Şifre")]
@@ -38,6 +52,7 @@ namespace GymSystem.Models
 
         [Display(Name = "Bitiş Tarihi")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = false)]
         public DateTime EndDate { get; set; }
 
         public int RemainingDays

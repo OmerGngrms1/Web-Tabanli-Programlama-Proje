@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GymSystem.Data;
 using GymSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GymSystem.Controllers
 {
+    [Authorize]
     public class ProgramsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -15,6 +17,7 @@ namespace GymSystem.Controllers
         }
 
         // GET: Programs
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Programs.ToListAsync());
@@ -30,11 +33,26 @@ namespace GymSystem.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (program == null) return NotFound();
+            
+            // Security check: If user is a member, ensure they are assigned this program
+            if (User.IsInRole("Member"))
+            {
+               var userIdClaim = User.FindFirst("UserId");
+               if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int memberId))
+               {
+                    var member = await _context.Members.FindAsync(memberId);
+                    if (member != null && member.WorkoutProgramId != id)
+                    {
+                        return RedirectToAction("AccessDenied", "Account"); // Or simply NotFound/Unauthorized
+                    }
+               }
+            }
 
             return View(program);
         }
 
         // GET: Programs/Create
+        [Authorize(Roles = "Trainer")]
         public IActionResult Create()
         {
             return View();
@@ -43,7 +61,8 @@ namespace GymSystem.Controllers
         // POST: Programs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,DurationInWeeks,Details")] WorkoutProgram program)
+        [Authorize(Roles = "Trainer")]
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Details")] WorkoutProgram program)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +74,7 @@ namespace GymSystem.Controllers
         }
 
         // GET: Programs/Edit/5
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -67,7 +87,8 @@ namespace GymSystem.Controllers
         // POST: Programs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,DurationInWeeks,Details")] WorkoutProgram program)
+        [Authorize(Roles = "Trainer")]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Details")] WorkoutProgram program)
         {
             if (id != program.Id) return NotFound();
 
@@ -89,6 +110,7 @@ namespace GymSystem.Controllers
         }
 
         // GET: Programs/Delete/5
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -103,6 +125,7 @@ namespace GymSystem.Controllers
         // POST: Programs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var program = await _context.Programs.FindAsync(id);

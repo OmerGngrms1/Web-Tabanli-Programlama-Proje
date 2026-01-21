@@ -1,25 +1,23 @@
-@model GymSystem.Models.WorkoutProgram
+@model GymSystem.Models.DietPlan
 
 @{
-    ViewData["Title"] = "Program Sil";
+    ViewData["Title"] = "Plan Sil";
 }
 
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card shadow border-danger">
             <div class="card-header bg-danger text-white">
-                <h4 class="mb-0">Program Silinecek</h4>
+                <h4 class="mb-0">Plan Silinecek</h4>
             </div>
             <div class="card-body">
-                <p class="lead">Bu programı silmek istediğinize emin misiniz?</p>
+                <p class="lead">Bu diyet planını silmek istediğinize emin misiniz?</p>
                 <dl class="row">
                     <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Name)</dt>
                     <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
                     
-                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Description)</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
-                    
-
+                    <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Details)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Details)</dd>
                 </dl>
                 
                 <form asp-action="Delete">

@@ -7,7 +7,7 @@
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header text-dark" style="background-color: #b3e5fc;">
                 <h4 class="mb-0"><i class="fas fa-user-plus"></i> Yeni Üye Kaydı</h4>
             </div>
             <div class="card-body">
@@ -26,6 +26,26 @@
                         </div>
                     </div>
                     <div class="mb-3">
+                        <label asp-for="Gender" class="form-label"></label>
+                        <select asp-for="Gender" class="form-select">
+                            <option value="">Seçiniz</option>
+                            <option value="Erkek">Erkek</option>
+                            <option value="Kadın">Kadın</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="DurationInMonths" class="form-label"></label>
+                        <select asp-for="DurationInMonths" class="form-select">
+                            <option value="">Seçiniz</option>
+                            <option value="1">1 Ay</option>
+                            <option value="3">3 Ay</option>
+                            <option value="6">6 Ay</option>
+                            <option value="12">12 Ay</option>
+                        </select>
+                        <span asp-validation-for="DurationInMonths" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
                         <label asp-for="Email" class="form-label"></label>
                         <input asp-for="Email" class="form-control" placeholder="orn: isim@ornek.com" />
                         <span asp-validation-for="Email" class="text-danger"></span>
@@ -34,6 +54,23 @@
                         <label asp-for="Phone" class="form-label"></label>
                         <input asp-for="Phone" class="form-control" placeholder="5XX XXX XX XX" />
                         <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                     <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Age" class="form-label"></label>
+                            <input asp-for="Age" class="form-control" placeholder="Yaş" />
+                            <span asp-validation-for="Age" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Weight" class="form-label"></label>
+                            <input asp-for="Weight" class="form-control" placeholder="kg" />
+                            <span asp-validation-for="Weight" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Height" class="form-label"></label>
+                            <input asp-for="Height" class="form-control" placeholder="cm" />
+                            <span asp-validation-for="Height" class="text-danger"></span>
+                        </div>
                     </div>
                      <div class="mb-3">
                         <label asp-for="Password" class="form-label"></label>

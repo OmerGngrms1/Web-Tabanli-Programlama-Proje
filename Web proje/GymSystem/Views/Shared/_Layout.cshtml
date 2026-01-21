@@ -38,7 +38,7 @@
                                 <a class="nav-link" asp-area="" asp-controller="Members" asp-action="Index">Üyeler</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Programs" asp-action="Index">Programlar</a>
+                                <a class="nav-link" asp-area="" asp-controller="Programs" asp-action="Index">Antrenman Programları</a>
                             </li>
                              <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="DietPlans" asp-action="Index">Diyet Listeleri</a>
@@ -48,12 +48,23 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                              <li class="nav-item ms-3">
+                                 <button id="theme-toggle" class="btn btn-outline-secondary btn-sm me-2" title="Karanlık Mod">
+                                     <i class="fas fa-moon"></i>
+                                 </button>
                                  <a class="btn btn-outline-secondary btn-sm me-2" asp-controller="Account" asp-action="ChangePassword">
                                     <i class="fas fa-key me-1"></i>Şifre
                                 </a>
                                 <a class="btn btn-outline-danger btn-sm" asp-controller="Account" asp-action="Logout">
                                     <i class="fas fa-sign-out-alt me-1"></i>Çıkış Yap
                                 </a>
+                            </li>
+                        }
+                        else
+                        {
+                             <li class="nav-item ms-3">
+                                 <button id="theme-toggle" class="btn btn-outline-secondary btn-sm me-2" title="Karanlık Mod">
+                                     <i class="fas fa-moon"></i>
+                                 </button>
                             </li>
                         }
                     </ul>
@@ -73,6 +84,33 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const icon = toggleBtn.querySelector('i');
+        const html = document.documentElement;
+
+        // Check local storage
+        if (localStorage.getItem('theme') === 'dark') {
+            html.setAttribute('data-theme', 'dark');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+        });
+    </script>
 </body>
 </html>
 

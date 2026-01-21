@@ -1,0 +1,93 @@
+@model GymSystem.Models.Member
+
+@{
+    ViewData["Title"] = "Bilgilerimi Düzenle";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow border-0">
+             <div class="card-header bg-white border-0 pt-4 px-4">
+                <h4 class="fw-bold mb-0 text-primary"><i class="fas fa-edit me-2"></i>Bilgilerimi Düzenle</h4>
+                <p class="text-muted small">Kişisel bilgilerinizi ve ölçümlerinizi güncelleyin.</p>
+            </div>
+            <div class="card-body px-4 py-3">
+                <form asp-action="EditProfile" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <!-- Hidden fields to preserve state if needed, though we update from DB in controller mostly, but good practice -->
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="Name" class="form-label fw-semibold"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                         <div class="col-md-6">
+                            <label asp-for="Surname" class="form-label fw-semibold"></label>
+                            <input asp-for="Surname" class="form-control" />
+                            <span asp-validation-for="Surname" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="col-12">
+                             <label asp-for="Email" class="form-label fw-semibold"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="form-label fw-semibold"></label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+
+                         <div class="col-md-6">
+                            <label asp-for="Gender" class="form-label fw-semibold"></label>
+                            <select asp-for="Gender" class="form-select">
+                                <option value="Erkek">Erkek</option>
+                                <option value="Kadın">Kadın</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="col-12"><hr class="my-2 opacity-10"></div>
+                        
+                        <div class="col-md-4">
+                            <label asp-for="Age" class="form-label fw-semibold">Yaş</label>
+                            <div class="input-group">
+                                <input asp-for="Age" class="form-control" type="number" />
+                                <span class="input-group-text bg-light">Yıl</span>
+                            </div>
+                            <span asp-validation-for="Age" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Weight" class="form-label fw-semibold">Kilo</label>
+                             <div class="input-group">
+                                <input asp-for="Weight" class="form-control" type="number" step="0.1" />
+                                <span class="input-group-text bg-light">kg</span>
+                            </div>
+                            <span asp-validation-for="Weight" class="text-danger"></span>
+                        </div>
+                         <div class="col-md-4">
+                            <label asp-for="Height" class="form-label fw-semibold">Boy</label>
+                             <div class="input-group">
+                                <input asp-for="Height" class="form-control" type="number" step="0.5" />
+                                <span class="input-group-text bg-light">cm</span>
+                            </div>
+                            <span asp-validation-for="Height" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Değişiklikleri Kaydet</button>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-link text-decoration-none mt-2">Vazgeç ve Dön</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

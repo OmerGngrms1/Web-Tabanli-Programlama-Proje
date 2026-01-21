@@ -6,7 +6,7 @@ using GymSystem.Models;
 
 namespace GymSystem.Controllers
 {
-    [Authorize(Roles = "Trainer")]
+    [Authorize]
     public class DietPlansController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -16,6 +16,7 @@ namespace GymSystem.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.DietPlans.ToListAsync());
@@ -30,9 +31,24 @@ namespace GymSystem.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (dietPlan == null) return NotFound();
 
+            // Security check: If user is a member, ensure they are assigned this plan
+            if (User.IsInRole("Member"))
+            {
+                var userIdClaim = User.FindFirst("UserId");
+                if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int memberId))
+                {
+                    var member = await _context.Members.FindAsync(memberId);
+                    if (member != null && member.DietPlanId != id)
+                    {
+                        return RedirectToAction("AccessDenied", "Account");
+                    }
+                }
+            }
+            
             return View(dietPlan);
         }
 
+        [Authorize(Roles = "Trainer")]
         public IActionResult Create()
         {
             return View();
@@ -40,6 +56,7 @@ namespace GymSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> Create([Bind("Id,Name,Details")] DietPlan dietPlan)
         {
             if (ModelState.IsValid)
@@ -51,6 +68,7 @@ namespace GymSystem.Controllers
             return View(dietPlan);
         }
 
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -62,6 +80,7 @@ namespace GymSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Details")] DietPlan dietPlan)
         {
             if (id != dietPlan.Id) return NotFound();
@@ -83,6 +102,7 @@ namespace GymSystem.Controllers
             return View(dietPlan);
         }
 
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -96,6 +116,7 @@ namespace GymSystem.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var dietPlan = await _context.DietPlans.FindAsync(id);

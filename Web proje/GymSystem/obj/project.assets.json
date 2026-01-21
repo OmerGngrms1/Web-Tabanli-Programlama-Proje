@@ -2880,7 +2880,8 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.14",
-      "Microsoft.EntityFrameworkCore.Tools >= 7.0.14"
+      "Microsoft.EntityFrameworkCore.Tools >= 7.0.14",
+      "Microsoft.SqlServer.Server >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2931,6 +2932,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[7.0.14, )"
+          },
+          "Microsoft.SqlServer.Server": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           }
         },
         "imports": [

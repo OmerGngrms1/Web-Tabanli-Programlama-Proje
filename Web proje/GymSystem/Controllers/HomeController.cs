@@ -24,34 +24,71 @@ public class HomeController : Controller
     {
         if (User.IsInRole("Member"))
         {
-            return RedirectToAction("MemberDashboard");
+            var userIdClaim = User.FindFirst("UserId");
+            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int memberId))
+            {
+                var member = await _context.Members
+                    .Include(m => m.WorkoutProgram)
+                    .Include(m => m.DietPlan)
+                    .FirstOrDefaultAsync(m => m.Id == memberId);
+                
+                if (member != null)
+                {
+                    ViewBag.Member = member; // Pass the member object to ViewBag
+                    
+                    // Fetch attendance history for the calendar/list
+                    ViewBag.AttendanceHistory = await _context.Attendances
+                        .Where(a => a.MemberId == memberId)
+                        .OrderByDescending(a => a.Date)
+                        .ToListAsync();
+                    
+                    // Check if attendance is marked for today
+                    var today = DateTime.Today;
+                    ViewBag.IsAttendanceMarked = await _context.Attendances
+                        .AnyAsync(a => a.MemberId == memberId && a.Date.Date == today);
+
+                    // Fetch weight history
+                    ViewBag.WeightHistory = await _context.MemberWeights
+                        .Where(w => w.MemberId == memberId)
+                        .OrderBy(w => w.Date)
+                        .ToListAsync();
+                }
+            }
+            // We return the same View(), but the view will handle the display based on Role/ViewBag
+            return View();
         }
 
+        // Admin/Trainer Dashboard Data
         ViewBag.MemberCount = await _context.Members.CountAsync();
         ViewBag.ProgramCount = await _context.Programs.CountAsync();
-        ViewBag.TodayAttendance = await _context.Attendances.CountAsync(a => a.Date.Date == DateTime.Today);
+        ViewBag.DietPlanCount = await _context.DietPlans.CountAsync();
+
         return View();
     }
 
+    [HttpPost]
     [Authorize(Roles = "Member")]
-    public async Task<IActionResult> MemberDashboard()
+    public async Task<IActionResult> MarkAttendance()
     {
         var userIdClaim = User.FindFirst("UserId");
-        if (userIdClaim == null) return RedirectToAction("Login", "Account");
-
-        if (int.TryParse(userIdClaim.Value, out int memberId))
+        if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int memberId))
         {
-            var member = await _context.Members
-                .Include(m => m.Attendances)
-                .Include(m => m.WorkoutProgram)
-                .Include(m => m.DietPlan)
-                .FirstOrDefaultAsync(m => m.Id == memberId);
+            var today = DateTime.Today;
+            bool alreadyMarked = await _context.Attendances.AnyAsync(a => a.MemberId == memberId && a.Date.Date == today);
 
-            if (member == null) return RedirectToAction("Login", "Account");
-            
-            return View(member);
+            if (!alreadyMarked)
+            {
+                var attendance = new Attendance
+                {
+                    MemberId = memberId,
+                    Date = DateTime.Now,
+                    IsPresent = true
+                };
+                _context.Attendances.Add(attendance);
+                await _context.SaveChangesAsync();
+            }
         }
-        return RedirectToAction("Login", "Account");
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Privacy()

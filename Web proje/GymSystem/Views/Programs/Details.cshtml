@@ -1,0 +1,31 @@
+@model GymSystem.Models.WorkoutProgram
+
+@{
+    ViewData["Title"] = "Program Detayları";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header text-dark" style="background-color: #b3e5fc;">
+                <h4 class="mb-0"><i class="fas fa-info-circle"></i> Program Detayları</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Name)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Details)</dt>
+                    <dd class="col-sm-9" style="white-space: pre-line;">@Html.DisplayFor(model => model.Details)</dd>
+                </dl>
+                
+                <div class="d-grid mt-4">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i>Ana Menüye Dön</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

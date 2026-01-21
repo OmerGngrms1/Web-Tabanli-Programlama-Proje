@@ -4,6 +4,7 @@ using GymSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260121114933_AddGenderToMember")]
+    partial class AddGenderToMember
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,30 +132,6 @@ namespace GymSystem.Migrations
                     b.ToTable("Members");
                 });
 
-            modelBuilder.Entity("GymSystem.Models.MemberWeight", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MemberId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Weight")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("MemberWeights");
-                });
-
             modelBuilder.Entity("GymSystem.Models.Trainer", b =>
                 {
                     b.Property<int>("Id")
@@ -223,17 +202,6 @@ namespace GymSystem.Migrations
                     b.Navigation("DietPlan");
 
                     b.Navigation("WorkoutProgram");
-                });
-
-            modelBuilder.Entity("GymSystem.Models.MemberWeight", b =>
-                {
-                    b.HasOne("GymSystem.Models.Member", "Member")
-                        .WithMany()
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("GymSystem.Models.DietPlan", b =>

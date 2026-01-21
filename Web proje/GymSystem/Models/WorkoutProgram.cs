@@ -16,8 +16,7 @@ namespace GymSystem.Models
         [Display(Name = "Program Detayları")]
         public string? Details { get; set; }
 
-        [Display(Name = "Süre (Hafta)")]
-        public int DurationInWeeks { get; set; }
+
 
         public ICollection<Member> Members { get; set; } = new List<Member>();
     }

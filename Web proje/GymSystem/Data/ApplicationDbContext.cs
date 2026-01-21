@@ -15,6 +15,7 @@ namespace GymSystem.Data
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<DietPlan> DietPlans { get; set; }
+        public DbSet<MemberWeight> MemberWeights { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -19,17 +19,7 @@
                     <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Surname)</dt>
                     <dd class="col-sm-8">@Html.DisplayFor(model => model.Surname)</dd>
 
-                    <dt class="col-sm-4">Program</dt>
-                    <dd class="col-sm-8">
-                         @if (Model.WorkoutProgram != null)
-                        {
-                            @Model.WorkoutProgram.Name
-                        }
-                        else
-                        {
-                            <span class="text-muted">Atanmadı</span>
-                        }
-                    </dd>
+
                 </dl>
                 
                 <form asp-action="Delete">
