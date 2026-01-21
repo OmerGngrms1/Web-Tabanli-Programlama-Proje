@@ -1,5 +1,5 @@
 # Proje Adı
-GymSystem
+FitTrack
 
 # Proje Amacı
 Bu projenin amacı, spor salonu işletmelerinin yönetim süreçlerini dijitalleştirerek verimliliği artırmaktır. Sistem, antrenörlerin üyeleri daha etkili bir şekilde takip etmesine, üyelere kişiselleştirilmiş antrenman ve diyet programları atamasına ve üyelerin kendi gelişim süreçlerini (kilo takibi, katılım durumu vb.) kolayca izlemelerine olanak tanır.
