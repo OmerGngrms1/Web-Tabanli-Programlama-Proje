@@ -32,10 +32,9 @@ Sistemde iki temel rol bulunmaktadır: Yönetici (Trainer) ve Üye (Member).
 *   Chart.js (Grafiksel Veri Gösterimi)
 
 # Tanıtım Videosu YouTube Linki
+
 https://www.youtube.com/watch?v=7jW2ymN6Hgg
 
----
 
 
-## Video linki
-https://youtu.be/pBMZH-AN62Q 
+
