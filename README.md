@@ -1,88 +1,38 @@
-# Web-Tabanli-Programlama-Prpje
-# 📌 Proje Adı
-FitTrack
+# Proje Adı
+GymSystem
 
----
+# Proje Amacı
+Bu projenin amacı, spor salonu işletmelerinin yönetim süreçlerini dijitalleştirerek verimliliği artırmaktır. Sistem, antrenörlerin üyeleri daha etkili bir şekilde takip etmesine, üyelere kişiselleştirilmiş antrenman ve diyet programları atamasına ve üyelerin kendi gelişim süreçlerini (kilo takibi, katılım durumu vb.) kolayca izlemelerine olanak tanır.
 
-## 🎯 Proje Amacı
-Bu projenin amacı, **ASP.NET MVC / ASP.NET Core MVC** mimarisi kullanılarak,
-gerçek hayatta karşılığı olan bir problemi çözen, veritabanı destekli ve
-kullanıcı dostu bir web uygulaması geliştirmektir.
+# Hedef Kullanıcı Kitlesi
+*   *Spor Salonu Yöneticileri ve Antrenörler:* Üye kayıtlarını tutmak, program atamak, yoklama ve gelişim takibi yapmak isteyen profesyoneller.
+*   *Spor Salonu Üyeleri:* Antrenman ve diyet programlarına her an erişmek, gelişimlerini grafiklerle takip etmek ve yoklama işlemlerini dijital ortamda gerçekleştirmek isteyen kullanıcılar.
 
-Proje kapsamında;
-- MVC (Model – View – Controller) mimarisi uygulanmış,
-- CRUD (Create, Read, Update, Delete) işlemleri içeren,
-- C# tabanlı,
-- Veritabanı entegrasyonu yapılmış
-bir web uygulaması geliştirilmiştir.
+# Senaryo / Kullanım Amacı
+Sistemde iki temel rol bulunmaktadır: Yönetici (Trainer) ve Üye (Member).
 
----
+1.  *Yönetici Senaryosu:*
+    *   Sisteme giriş yapar.
+    *   Yeni üye kaydı oluşturur (Ad, Soyad, Yaş, Kilo, Boy vb.).
+    *   Üyeye özel veya genel Antrenman ve Diyet programları oluşturur ve atar.
+    *   Üyelerin devamlılık durumunu (yoklama geçmişi) ve kilo değişim grafiklerini detaylı olarak inceler.
 
-## 👥 Hedef Kullanıcı Kitlesi
-Bu web uygulaması aşağıdaki kullanıcı kitlesine hitap etmektedir:
+2.  *Üye Senaryosu:*
+    *   Kendisine verilen bilgilerle sisteme giriş yapar.
+    *   Dashboard (Ana Sayfa) üzerinden "Bilgilerim", "Antrenman Programım", "Diyet Listem" ve "Yoklama" kartlarına erişir.
+    *   Salona geldiğinde "Buradayım" butonuna basarak yoklama alır.
+    *   Kilo değişimlerini sisteme girer ve gelişimini grafik üzerinden takip eder.
+    *   Kişisel bilgilerini güncelleyebilir.
 
-- Sporcular
-- İşletme sahipleri
+# Kullanılan Teknolojiler
+*   C#
+*   ASP.NET MVC / ASP.NET Core MVC (v7.0)
+*   SQL Server Express (Entity Framework Core Code-First)
+*   Bootstrap 5 & FontAwesome (Arayüz Tasarımı)
+*   Chart.js (Grafiksel Veri Gösterimi)
 
-
----
-
-### Kullanım Senaryosu:
-- Kullanıcı sisteme giriş yapar.
-- Sistemde mevcut verileri görüntüleyebilir.
-- Yeni kayıt ekleyebilir.
-- Var olan kayıtları güncelleyebilir.
-- Gereksiz veya hatalı kayıtları silebilir.
-
----
-
-## 🛠 Kullanılan Teknolojiler
-Projede aşağıdaki teknolojiler kullanılmıştır:
-
-- **C#**
-- **ASP.NET MVC / ASP.NET Core MVC**
-- **SQL Server Express**
-- **Entity Framework**
-- **HTML / CSS / Bootstrap**
-- **JavaScript**
-
----
-
-## 🗄 Veritabanı Yapısı ve CRUD İşlemleri
-Projede SQL Server Express veritabanı kullanılmıştır.
-
-- Tablolar, proje amacına uygun ve anlamlı isimlendirilmiştir.
-- Model sınıfları ile veritabanı tabloları birebir uyumludur.
-- Aşağıdaki CRUD işlemleri başarıyla uygulanmıştır:
-  - Create (Ekleme)
-  - Read (Listeleme / Detay Görüntüleme)
-  - Update (Güncelleme)
-  - Delete (Silme)
-
----
-
-## 🧱 MVC Mimari Yapısı
-Proje **Model – View – Controller** mimarisine uygun şekilde geliştirilmiştir:
-
-- **Models**  
-  Veritabanı tablolarını temsil eden sınıflar yer alır.
-
-- **Views**  
-  Kullanıcı arayüzleri (listeleme, ekleme, düzenleme, detay sayfaları) bulunur.
-
-- **Controllers**  
-  İş mantığı ve yönlendirmeler burada gerçekleştirilir.
-
----
-
-## 🎨 Arayüz (UI) ve Kullanılabilirlik
-- Responsive (duyarlı) tasarım kullanılmıştır.
-- Kullanıcı dostu ve sade bir arayüz tasarlanmıştır.
-- En az bir:
-  - Listeleme sayfası
-  - Ekleme / düzenleme formu
-  - Detay veya yönetim ekranı
-  bulunmaktadır.
+# Tanıtım Videosu YouTube Linki
+https://www.youtube.com/watch?v=7jW2ymN6Hgg
 
 ---
 
